@@ -1,5 +1,9 @@
 'use strict';
-document.getElementById('crazybutton').addEventListener('click', function(event){
-    alert(7);
-    console.log('Button has been pressed o7');
+
+let craziestCounter = 0
+
+document.getElementById('crazyButton').addEventListener('click', function(event){
+    craziestCounter++;
+    console.log('Button has been pressed',craziestCounter,'times o7');
+    document.getElementById('craziestCounterDisplay').innerText=craziestCounter;
 });
