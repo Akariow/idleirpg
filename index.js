@@ -9,13 +9,12 @@ let player = {
 
 document.getElementById('crazyButton').addEventListener('click', function (event) {
     player.crazy++;
-    document.getElementById('crazyDisplay').innerText = formatNumber(player.crazy);
 });
 
 document.getElementById('generatorButton').addEventListener('click', function (event) {
     player.generatorCount++;
-    document.getElementById('generatorDisplay').innerText = formatNumber(player.generatorCount);
 });
+
 
 function formatNumber(number) {
     return number.toFixed(0);
@@ -35,7 +34,11 @@ function load() {
 function tick(deltaTime) {
     const multiplier = deltaTime / 1000;
     player.crazy += player.generatorCount * multiplier;
+}
+
+function updateDisplays() {
     document.getElementById('crazyDisplay').innerText = formatNumber(player.crazy);
+    document.getElementById('generatorDisplay').innerText = formatNumber(player.generatorCount);
 }
 
 let lastTime;
@@ -45,6 +48,7 @@ function loop(currentTime) {
         const deltaTime = currentTime - lastTime;
         tick(deltaTime);
     }
+    updateDisplays();
     lastTime = currentTime;
     requestAnimationFrame(loop);
 }
