@@ -21,6 +21,17 @@ function formatNumber(number) {
     return number.toFixed(0);
 }
 
+function save() {
+    localStorage.setItem('player', JSON.stringify(player));
+}
+
+function load() {
+    const playerString = localStorage.getItem('player');
+    if (playerString) {
+        player = JSON.parse(playerString);
+    }
+}
+
 function tick(deltaTime) {
     const multiplier = deltaTime / 1000;
     player.crazy += player.generatorCount * multiplier;
@@ -38,4 +49,10 @@ function loop(currentTime) {
     requestAnimationFrame(loop);
 }
 
-requestAnimationFrame(loop)
+function init() {
+    load();
+    setInterval(save,10000);
+    requestAnimationFrame(loop);
+}
+
+init();
