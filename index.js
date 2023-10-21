@@ -33,6 +33,6 @@ function loop() {
     const deltaTime = currentTime - lastTime;
     lastTime = currentTime;
     tick(deltaTime);
+    setTimeout(loop,1000/30-(performance.now()-currentTime));
 }
 
-setInterval(loop,1000);
