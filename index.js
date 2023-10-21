@@ -7,14 +7,14 @@ let player = {
 
 
 
-document.getElementById('crazyButton').addEventListener('click', function(event){
+document.getElementById('crazyButton').addEventListener('click', function (event) {
     player.crazy++;
-    document.getElementById('crazyDisplay').innerText=formatNumber(player.crazy);
+    document.getElementById('crazyDisplay').innerText = formatNumber(player.crazy);
 });
 
-document.getElementById('generatorButton').addEventListener('click', function(event){
+document.getElementById('generatorButton').addEventListener('click', function (event) {
     player.generatorCount++;
-    document.getElementById('generatorDisplay').innerText=formatNumber(player.generatorCount);
+    document.getElementById('generatorDisplay').innerText = formatNumber(player.generatorCount);
 });
 
 function formatNumber(number) {
@@ -22,18 +22,20 @@ function formatNumber(number) {
 }
 
 function tick(deltaTime) {
-    const multiplier = deltaTime/1000;
+    const multiplier = deltaTime / 1000;
     player.crazy += player.generatorCount * multiplier;
-    document.getElementById('crazyDisplay').innerText=formatNumber(player.crazy);
+    document.getElementById('crazyDisplay').innerText = formatNumber(player.crazy);
 }
 
-let lastTime = performance.now();
-function loop() {
-    const currentTime = performance.now();
-    const deltaTime = currentTime - lastTime;
+let lastTime;
+
+function loop(currentTime) {
+    if (lastTime) {
+        const deltaTime = currentTime - lastTime;
+        tick(deltaTime);
+    }
     lastTime = currentTime;
-    tick(deltaTime);
     requestAnimationFrame(loop);
 }
 
-loop();
+requestAnimationFrame(loop)
