@@ -3,3 +3,15 @@ body {
     background: pink;
     text-align: center;
 }
+
+button {
+    border: 10px solid black;
+}
+
+button.normalButton {
+    background-color: aqua;
+}
+
+button.specialButton {
+    background-color: rgb(104, 2, 117);
+}
