@@ -1,9 +1,17 @@
 'use strict';
 
-let craziestCounter = 0
+let player = {
+    crazy: 0,
+    generatorCount: 0
+}
+
 
 document.getElementById('crazyButton').addEventListener('click', function(event){
-    craziestCounter++;
-    console.log('Button has been pressed',craziestCounter,'times o7');
-    document.getElementById('craziestCounterDisplay').innerText=craziestCounter;
+    player.crazy++;
+    document.getElementById('crazyDisplay').innerText=player.crazy;
+});
+
+document.getElementById('generatorButton').addEventListener('click', function(event){
+    player.generatorCount++;
+    document.getElementById('generatorDisplay').innerText=player.generatorCount;
 });
