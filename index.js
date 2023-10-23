@@ -2,7 +2,8 @@
 
 let player = {
     crazy: 0,
-    generatorCount: 0
+    generatorCount: 0,
+    generatorCost: 100,
 }
 
 
@@ -12,7 +13,11 @@ document.getElementById('crazyButton').addEventListener('click', function (event
 });
 
 document.getElementById('generatorButton').addEventListener('click', function (event) {
-    player.generatorCount++;
+    if (player.crazy >= player.generatorCost) {
+        player.generatorCount++;
+        player.crazy -= player.generatorCost;
+        player.generatorCost = Math.trunc(player.generatorCost*1.1+1);
+    }
 });
 
 
@@ -39,7 +44,10 @@ function tick(deltaTime) {
 function updateDisplays() {
     document.getElementById('crazyDisplay').innerText = formatNumber(player.crazy);
     document.getElementById('generatorDisplay').innerText = formatNumber(player.generatorCount);
+    document.getElementById('generatorCost').innerText = formatNumber(player.generatorCost);
 }
+
+
 
 let lastTime;
 
@@ -55,7 +63,7 @@ function loop(currentTime) {
 
 function init() {
     load();
-    setInterval(save,10000);
+    setInterval(save, 10000);
     requestAnimationFrame(loop);
 }
 
