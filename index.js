@@ -3,19 +3,29 @@
 let player = {
     lastTime: undefined,
     crazy: 0,
+    crazyClick: 0,
+    crazyClickUpgradeCost: 10,
     generatorCount: 0,
     generatorCost: 100
 }
 
 document.getElementById('crazyButton').addEventListener('click', function (event) {
-    player.crazy++;
+    player.crazy += 1 + crazyClick;
 });
+
+document.getElementById('crazyClickUpgradeButton').addEventListener('click', function (event) {
+    if(player.crazy >= player.crazyClickUpgradeCost) {
+        player.crazyClick++;
+        player.crazy -= player.crazyClickUpgradeCost;
+        player.crazyClickUpgradeCost = Math.trunc(player.crazyClickUpgradeCost * 1.25);
+    }
+})
 
 document.getElementById('generatorButton').addEventListener('click', function (event) {
     if (player.crazy >= player.generatorCost) {
         player.generatorCount++;
         player.crazy -= player.generatorCost;
-        player.generatorCost = Math.trunc(player.generatorCost * 1.1 + 1);
+        player.generatorCost = Math.trunc(player.generatorCost * 1.1);
     }
 });
 
