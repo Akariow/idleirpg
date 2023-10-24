@@ -1,9 +1,10 @@
 'use strict';
 
 let player = {
+    lastTime: undefined,
     crazy: 0,
     generatorCount: 0,
-    generatorCost: 100,
+    generatorCost: 100
 }
 
 
@@ -60,17 +61,13 @@ function updateDisplays() {
     document.getElementById('generatorCost').innerText = formatNumber(player.generatorCost);
 }
 
-
-
-let lastTime;
-
 function loop(currentTime) {
-    if (lastTime) {
-        const deltaTime = currentTime - lastTime;
+    if (player.lastTime) {
+        const deltaTime = currentTime - player.lastTime;
         tick(deltaTime);
     }
     updateDisplays();
-    lastTime = currentTime;
+    player.lastTime = currentTime;
     requestAnimationFrame(loop);
 }
 
