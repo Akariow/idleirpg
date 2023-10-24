@@ -25,7 +25,7 @@ function formatNumber(number) {
 }
 
 function save() {
-    player.lastTime = performance.now();
+    player.lastTime = performance.timeOrigin + performance.now();
     localStorage.setItem('player', JSON.stringify(player));
 }
 
@@ -33,7 +33,7 @@ function load() {
     const playerString = localStorage.getItem('player');
     if (playerString) {
         updateNestedObject(player, JSON.parse(playerString));
-        tick(performance.now() - player.lastTime);
+        tick(performance.timeOrigin + performance.now() - player.lastTime);
     }
     updateDisplays();
 }
