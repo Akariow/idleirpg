@@ -7,8 +7,6 @@ let player = {
     generatorCost: 100
 }
 
-
-
 document.getElementById('crazyButton').addEventListener('click', function (event) {
     player.crazy++;
 });
@@ -17,7 +15,7 @@ document.getElementById('generatorButton').addEventListener('click', function (e
     if (player.crazy >= player.generatorCost) {
         player.generatorCount++;
         player.crazy -= player.generatorCost;
-        player.generatorCost = Math.trunc(player.generatorCost*1.1+1);
+        player.generatorCost = Math.trunc(player.generatorCost * 1.1 + 1);
     }
 });
 
@@ -27,14 +25,17 @@ function formatNumber(number) {
 }
 
 function save() {
+    player.lastTime = performance.now();
     localStorage.setItem('player', JSON.stringify(player));
 }
 
 function load() {
     const playerString = localStorage.getItem('player');
     if (playerString) {
-        updateNestedObject(player,JSON.parse(playerString));
+        updateNestedObject(player, JSON.parse(playerString));
+        tick(performance.now() - player.lastTime);
     }
+    updateDisplays();
 }
 
 function updateNestedObject(obj1, obj2) {
@@ -61,13 +62,15 @@ function updateDisplays() {
     document.getElementById('generatorCost').innerText = formatNumber(player.generatorCost);
 }
 
+let lastTime;
+
 function loop(currentTime) {
-    if (player.lastTime) {
-        const deltaTime = currentTime - player.lastTime;
+    if (lastTime) {
+        const deltaTime = currentTime - lastTime;
         tick(deltaTime);
     }
     updateDisplays();
-    player.lastTime = currentTime;
+    lastTime = currentTime;
     requestAnimationFrame(loop);
 }
 
