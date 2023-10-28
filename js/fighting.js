@@ -15,7 +15,13 @@ let fighting = {
 
 const fightlog = document.getElementById('fightSimulator');
 
-framework.idButtonThing('startFightButton',() => fight(fighting.PLAYER, fighting.ENEMY));
+framework.makeClickable({
+    id: 'startFightButton',
+    display: 'Start Fighting',
+    onClick() {
+        fight(fighting.PLAYER, fighting.ENEMY);
+    }
+});
 
 function randomizeDamage(atk) {
     const damageRange = 3;

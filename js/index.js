@@ -11,7 +11,7 @@ let player = {
     generatorCost: 100
 }
 
-framework.makeButton({
+framework.makeClickable({
     id: 'crazyButton',
     display: 'Im  Crazy?!',
     onClick() {
@@ -88,10 +88,21 @@ function tick(deltaTimeMS) {
     player.crazy += player.generatorCount * deltaTimeS;
 }
 
-function updateDisplays() {
-    document.getElementById('crazyDisplay').innerText = formatNumber(player.crazy);
-    document.getElementById('generatorDisplay').innerText = formatNumber(player.generatorCount);
-}
+framework.makeDisplay({
+    id: 'crazyDisplay',
+    display: 'Craziness',
+    value(){
+        return player.crazy;
+    }
+})
+
+framework.makeDisplay({
+    id: 'generatorDisplay',
+    display: 'Generators',
+    value(){
+        return player.generatorCount;
+    }
+})
 
 let lastTime;
 
@@ -100,7 +111,6 @@ function loop(currentTime) {
         const deltaTime = currentTime - lastTime;
         tick(deltaTime);
     }
-    updateDisplays();
     lastTime = currentTime;
     requestAnimationFrame(loop);
 }

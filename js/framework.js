@@ -1,19 +1,16 @@
 export const framework = {
     ticks: [],
-    tick: function (deltaTimeMS) {
+    tick(deltaTimeMS) {
         for (let tick of this.ticks) {
             tick(deltaTimeMS);
         }
     },
-    idButtonThing: function (id, func) {
-        document.getElementById(id).addEventListener('click', func);
+    makeClickable(clickableObject) {
+        const button = document.getElementById(clickableObject.id);
+        button.textContent = clickableObject.display;
+        button.addEventListener('click', clickableObject.onClick);
     },
-    makeButton: function (buttonObject) {
-        const button = document.getElementById(buttonObject.id);
-        button.textContent = buttonObject.display;
-        button.addEventListener('click', buttonObject.onClick);
-    },
-    makeBuyable: function (buyableObject) {
+    makeBuyable(buyableObject) {
         const button = document.getElementById(buyableObject.id);
         this.ticks.push(function () {
             button.innerHTML = `${buyableObject.display}<br>Cost: ${buyableObject.cost()}`;
@@ -23,12 +20,18 @@ export const framework = {
                 buyableObject.buy();
             }
         });
+    },
+    makeDisplay(displayObject) {
+        const display = document.getElementById(displayObject.id);
+        this.ticks.push(function () {
+            display.innerHTML = `${displayObject.display}: ${displayObject.value()}`;
+        });
     }
 };
 
 /*
 
-framework.makeButton({
+framework.makeClickable({
     id: 'crazyButton',
     display: 'Im  Crazy?!',
     onClick() {
@@ -51,5 +54,13 @@ framework.makeBuyable({
         player.crazyClickUpgradeCost = Math.trunc(this.cost() * 1.25);
     }
 });
+
+framework.makeDisplay({
+    id: 'crazyDisplay',
+    display: 'Craziness',
+    value(){
+        return player.crazy;
+    }
+})
 
 */
