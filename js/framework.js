@@ -16,7 +16,7 @@ export const framework = {
     makeBuyable: function (buyableObject) {
         const button = document.getElementById(buyableObject.id);
         this.ticks.push(function () {
-            button.textContent = '${buyableObject.display}\nCost: ${buyableObject.cost()}';
+            button.innerHTML = `${buyableObject.display}<br>Cost: ${buyableObject.cost()}`;
         });
         button.addEventListener('click', function () {
             if (buyableObject.canBuy()) {
@@ -30,21 +30,25 @@ export const framework = {
 
 framework.makeButton({
     id: 'crazyButton',
-    display: 'Im Crazy?!',
-    onClick: function () {
+    display: 'Im  Crazy?!',
+    onClick() {
         player.crazy += 1 + player.crazyClick;
     }
 });
 
 framework.makeBuyable({
-    id: 'generatorButton',
-    display: 'Generate Crazy?!',
-    cost: () => player.generatorCost,
-    canBuy: () => player.crazy >= this.cost(),
-    buy: function () {
-        player.generatorCount++;
+    id: 'crazyClickUpgradeButton',
+    display: 'UPGRADE CRAZY?',
+    cost() {
+        return player.crazyClickUpgradeCost;
+    },
+    canBuy() {
+        return player.crazy >= this.cost();
+    },
+    buy() {
+        player.crazyClick++;
         player.crazy -= this.cost();
-        player.generatorCost = Math.trunc(this.cost() * 1.1);
+        player.crazyClickUpgradeCost = Math.trunc(this.cost() * 1.25);
     }
 });
 
