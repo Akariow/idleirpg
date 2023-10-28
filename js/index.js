@@ -66,7 +66,6 @@ function load() {
         updateNestedObject(player, JSON.parse(playerString));
         tick(performance.timeOrigin + performance.now() - player.lastTime);
     }
-    updateDisplays();
 }
 
 function updateNestedObject(obj1, obj2) {
