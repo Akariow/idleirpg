@@ -11,6 +11,12 @@ let fighting = {
     }
 }
 
+const fightlog = document.getElementById('fightSimulator');
+
+document.getElementById('startFightButton').addEventListener('click', function (event) {
+    fight(fighting.PLAYER, fighting.ENEMY);
+});
+
 function randomizeDamage(atk) {
     const damageRange = 3;
     const lowerDamage = atk / damageRange;
@@ -29,12 +35,14 @@ function attack (attacker, defender) {
     const damage = randomizeDamage(attacker.ATK);
     defender.HP -= damage;
     if (defender.HP < 0) defender.HP = 0; 
-    console.log(`${attacker.NAME} dealt ${damage} damage | ${defender.NAME}'s HP is now ${defender.HP}`);
+    fightlog.innerText += `${attacker.NAME} dealt ${damage} damage | ${defender.NAME}'s HP is now ${defender.HP}\n`;
 }
 
 function fight(player, enemy) {
     player = structuredClone(player);
     enemy = structuredClone(enemy);
+
+    fightlog.innerText = '';
 
     while (true) {
         attack(player, enemy);
@@ -44,12 +52,10 @@ function fight(player, enemy) {
     }
 
     if (enemy.HP <= 0) {
-        console.log("YOU WON!!!!");
+        fightlog.innerText += "YOU WON!!!!\n";
         return true;
     } else {
-        console.log("NOOOOOB!!!!");
+        fightlog.innerText += "NOOOOOB!!!!\n";
         return false;
     }
 }
-
-//fight(fighting.PLAYER, fighting.ENEMY);

@@ -19,7 +19,7 @@ document.getElementById('crazyClickUpgradeButton').addEventListener('click', fun
         player.crazy -= player.crazyClickUpgradeCost;
         player.crazyClickUpgradeCost = Math.trunc(player.crazyClickUpgradeCost * 1.25);
     }
-})
+});
 
 document.getElementById('generatorButton').addEventListener('click', function (event) {
     if (player.crazy >= player.generatorCost) {
@@ -28,6 +28,7 @@ document.getElementById('generatorButton').addEventListener('click', function (e
         player.generatorCost = Math.trunc(player.generatorCost * 1.1);
     }
 });
+
 
 
 function formatNumber(number) {
