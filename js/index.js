@@ -1,4 +1,6 @@
-'use strict';
+import {
+    framework
+} from "./framework.js";
 
 let player = {
     lastTime: undefined,
@@ -9,27 +11,37 @@ let player = {
     generatorCost: 100
 }
 
-document.getElementById('crazyButton').addEventListener('click', function (event) {
-    player.crazy += 1 + player.crazyClick;
+framework.makeButton({
+    id: 'crazyButton',
+    display: 'Im  Crazy?!',
+    onClick: function () {
+        player.crazy += 1 + player.crazyClick;
+    }
 });
 
-document.getElementById('crazyClickUpgradeButton').addEventListener('click', function (event) {
-    if(player.crazy >= player.crazyClickUpgradeCost) {
+framework.makeBuyable({
+    id: 'crazyClickUpgradeButton',
+    display: 'UPGRADE CRAZY?',
+    cost: () => player.crazyClickUpgradeCost,
+    canBuy: () => player.crazy >= this.cost(),
+    buy: function () {
         player.crazyClick++;
-        player.crazy -= player.crazyClickUpgradeCost;
-        player.crazyClickUpgradeCost = Math.trunc(player.crazyClickUpgradeCost * 1.25);
+        player.crazy -= this.cost();
+        player.crazyClickUpgradeCost = Math.trunc(this.cost() * 1.25);
     }
 });
 
-document.getElementById('generatorButton').addEventListener('click', function (event) {
-    if (player.crazy >= player.generatorCost) {
+framework.makeBuyable({
+    id: 'generatorButton',
+    display: 'Generate Crazy?!',
+    cost: () => player.generatorCost,
+    canBuy: () => player.crazy >= this.cost(),
+    buy: function () {
         player.generatorCount++;
-        player.crazy -= player.generatorCost;
-        player.generatorCost = Math.trunc(player.generatorCost * 1.1);
+        player.crazy -= this.cost();
+        player.generatorCost = Math.trunc(this.cost() * 1.1);
     }
 });
-
-
 
 function formatNumber(number) {
     return number.toFixed(0);
@@ -62,16 +74,15 @@ function updateNestedObject(obj1, obj2) {
     return obj1;
 }
 
-function tick(deltaTime) {
-    const multiplier = deltaTime / 1000;
-    player.crazy += player.generatorCount * multiplier;
+function tick(deltaTimeMS) {
+    framework.tick(deltaTimeMS);
+    const deltaTimeS = deltaTimeMS / 1000;
+    player.crazy += player.generatorCount * deltaTimeS;
 }
 
 function updateDisplays() {
     document.getElementById('crazyDisplay').innerText = formatNumber(player.crazy);
     document.getElementById('generatorDisplay').innerText = formatNumber(player.generatorCount);
-    document.getElementById('generatorCost').innerText = formatNumber(player.generatorCost);
-    document.getElementById('crazyClickUpgradeCost').innerText = formatNumber(player.crazyClickUpgradeCost);
 }
 
 let lastTime;

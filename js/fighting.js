@@ -1,3 +1,5 @@
+import { framework } from "./framework.js";
+
 let fighting = {
     PLAYER: {
         NAME: "Allah",
@@ -13,9 +15,7 @@ let fighting = {
 
 const fightlog = document.getElementById('fightSimulator');
 
-document.getElementById('startFightButton').addEventListener('click', function (event) {
-    fight(fighting.PLAYER, fighting.ENEMY);
-});
+framework.idButtonThing('startFightButton',() => fight(fighting.PLAYER, fighting.ENEMY));
 
 function randomizeDamage(atk) {
     const damageRange = 3;
