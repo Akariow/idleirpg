@@ -61,6 +61,6 @@ framework.makeDisplay({
     value(){
         return player.crazy;
     }
-})
+});
 
 */

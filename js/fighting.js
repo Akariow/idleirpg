@@ -15,7 +15,13 @@ let fighting = {
 
 //const statsDisplay = document.getElementById('fightStatsDisplay');
 
-
+framework.makeDisplay({
+    id: 'fightStatsDisplay',
+    display: 'STATS<br>',
+    value(){
+        return Object.keys(fighting.PLAYER).map((key) => fighting.PLAYER[key]).join(' ');
+    }
+});
 
 const fightlog = document.getElementById('fightBattleLog');
 
