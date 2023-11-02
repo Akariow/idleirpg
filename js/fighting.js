@@ -13,7 +13,11 @@ let fighting = {
     }
 }
 
-const fightlog = document.getElementById('fightSimulator');
+//const statsDisplay = document.getElementById('fightStatsDisplay');
+
+
+
+const fightlog = document.getElementById('fightBattleLog');
 
 framework.makeClickable({
     id: 'startFightButton',
