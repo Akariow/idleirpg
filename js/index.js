@@ -11,11 +11,6 @@ import {
     loop
 } from "./tick.js";
 
-
-function formatNumber(number) {
-    return number.toFixed(0);
-}
-
 function init() {
     load();
     initCrazy();

@@ -4,6 +4,9 @@ import {
 import {
     player
 } from "./player.js";
+import {
+    formatNumber
+} from "./format.js";
 
 export function initCrazy() {
     framework.makeClickable({
