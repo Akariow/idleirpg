@@ -1,6 +1,10 @@
 import {
     framework
 } from "./framework.js";
+import {
+    player
+} from "./player.js";
+
 export function initCrazy() {
     framework.makeClickable({
         id: 'crazyButton',

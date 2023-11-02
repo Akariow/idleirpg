@@ -4,31 +4,12 @@ import {
 import {
     initCrazy
 } from "./crazy.js";
-
-let player = {
-    lastTime: undefined,
-    crazy: 0,
-    crazyClick: 0,
-    crazyClickUpgradeCost: 10,
-    generatorCount: 0,
-    generatorCost: 100
-}
+import {
+    player,save,load
+} from "./player.js";
 
 function formatNumber(number) {
     return number.toFixed(0);
-}
-
-function save() {
-    player.lastTime = performance.timeOrigin + performance.now();
-    localStorage.setItem('player', JSON.stringify(player));
-}
-
-function load() {
-    const playerString = localStorage.getItem('player');
-    if (playerString) {
-        updateNestedObject(player, JSON.parse(playerString));
-        tick(performance.timeOrigin + performance.now() - player.lastTime);
-    }
 }
 
 function updateNestedObject(obj1, obj2) {
