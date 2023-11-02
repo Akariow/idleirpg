@@ -19,7 +19,7 @@ framework.makeDisplay({
     id: 'fightStatsDisplay',
     display: 'STATS<br>',
     value(){
-        return Object.keys(fighting.PLAYER).map((key) => fighting.PLAYER[key]).join(' ');
+        return Object.keys(fighting.PLAYER).map((key) => key + ': ' + fighting.PLAYER[key]).join('<br>');
     }
 });
 
