@@ -17,7 +17,7 @@ let fighting = {
 
 framework.makeDisplay({
     id: 'fightStatsDisplay',
-    display: 'STATS<br>',
+    title: 'STATS',
     value(){
         return Object.keys(fighting.PLAYER).map((key) => key + ': ' + fighting.PLAYER[key]).join('<br>');
     }

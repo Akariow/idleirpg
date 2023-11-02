@@ -23,9 +23,19 @@ export const framework = {
     },
     makeDisplay(displayObject) {
         const display = document.getElementById(displayObject.id);
-        this.ticks.push(function () {
-            display.innerHTML = `${displayObject.display}: ${displayObject.value()}`;
-        });
+        if (displayObject.title) {
+            this.ticks.push(function () {
+                display.innerHTML = `${displayObject.title}<br>${displayObject.value()}`;
+            });
+        } else if (displayObject.display) {
+            this.ticks.push(function () {
+                display.innerHTML = `${displayObject.display}: ${displayObject.value()}`;
+            });
+        } else {
+            this.ticks.push(function () {
+                display.innerHTML = `${displayObject.value()}`;
+            });
+        }
     }
 };
 
