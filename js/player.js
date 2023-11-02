@@ -1,3 +1,7 @@
+import {
+    tick
+} from "./tick.js";
+
 export const player = {
     lastTime: undefined,
     crazy: 0,
