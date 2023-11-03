@@ -43,7 +43,7 @@ export function load() {
 
 export function doOfflineTicks() {
     if(offlineTicks>0) {
-        framework.ticks(offlineTicks);
+        framework.tick(offlineTicks);
     } 
     offlineTicks = 0;
 }
