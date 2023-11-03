@@ -4,12 +4,17 @@ import {
 import {
     player
 } from "./player.js";
+import {
+    v
+} from "./common.js";
 
 let fighting = {
     PLAYER: {
         NAME: "Allah",
         HP: 1000,
-        ATK: 15 + player.fightStatsBonusAtk
+        ATK() {
+            return 15 + player.fightStatsBonusAtk;
+        }
     },
     ENEMY: {
         NAME: "Aiwass?",
@@ -35,7 +40,7 @@ function randomizeDamage(atk) {
 }
 
 function attack(attacker, defender) {
-    const damage = randomizeDamage(attacker.ATK);
+    const damage = randomizeDamage(v(attacker.ATK));
     defender.HP -= damage;
     if (defender.HP < 0) defender.HP = 0;
     fightlog.innerText += `${attacker.NAME} dealt ${damage} damage | ${defender.NAME}'s HP is now ${defender.HP}\n`;
@@ -83,7 +88,6 @@ export function initFighting() {
         },
         buy() {
             player.fightStatsBonusAtk++;
-            fighting.PLAYER.ATK = 15 + player.fightStatsBonusAtk;
             player.crazy -= this.cost();
             player.fightStatsBonusAtkCost = Math.trunc(this.cost() * 1.5);
         }

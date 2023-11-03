@@ -17,13 +17,6 @@ export const framework = {
     start() {
         requestAnimationFrame(this.loop.bind(this));
     },
-    getValue(attribute) {
-        if (typeof attribute === 'function') {
-            return attribute()
-        } else {
-            return attribute;
-        }
-    },
     makeClickable(clickableObject) {
         const button = document.getElementById(clickableObject.id);
         button.textContent = clickableObject.display;
