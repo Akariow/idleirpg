@@ -1,4 +1,6 @@
-import { framework } from "./framework.js";
+import {
+    framework
+} from "./framework.js";
 
 let fighting = {
     PLAYER: {
@@ -13,25 +15,7 @@ let fighting = {
     }
 }
 
-//const statsDisplay = document.getElementById('fightStatsDisplay');
-
-framework.makeDisplay({
-    id: 'fightStatsDisplay',
-    title: 'STATS',
-    value(){
-        return Object.keys(fighting.PLAYER).map((key) => key + ': ' + fighting.PLAYER[key]).join('<br>');
-    }
-});
-
 const fightlog = document.getElementById('fightBattleLog');
-
-framework.makeClickable({
-    id: 'startFightButton',
-    display: 'Start Fighting',
-    onClick() {
-        fight(fighting.PLAYER, fighting.ENEMY);
-    }
-});
 
 function randomizeDamage(atk) {
     const damageRange = 3;
@@ -47,10 +31,10 @@ function randomizeDamage(atk) {
     return damage;
 }
 
-function attack (attacker, defender) {
+function attack(attacker, defender) {
     const damage = randomizeDamage(attacker.ATK);
     defender.HP -= damage;
-    if (defender.HP < 0) defender.HP = 0; 
+    if (defender.HP < 0) defender.HP = 0;
     fightlog.innerText += `${attacker.NAME} dealt ${damage} damage | ${defender.NAME}'s HP is now ${defender.HP}\n`;
 }
 
@@ -74,4 +58,22 @@ function fight(player, enemy) {
         fightlog.innerText += "NOOOOOB!!!!\n";
         return false;
     }
+}
+
+export function initFighting() {
+    framework.makeDisplay({
+        id: 'fightStatsDisplay',
+        title: 'STATS',
+        value() {
+            return Object.keys(fighting.PLAYER).map((key) => key + ': ' + fighting.PLAYER[key]).join('<br>');
+        }
+    });
+
+    framework.makeClickable({
+        id: 'startFightButton',
+        display: 'Start Fighting',
+        onClick() {
+            fight(fighting.PLAYER, fighting.ENEMY);
+        }
+    });
 }

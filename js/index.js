@@ -1,11 +1,12 @@
 import {
-    framework
-} from "./framework.js";
-import {
     initCrazy
 } from "./crazy.js";
 import {
-    save,load
+    initFighting
+} from "./fighting.js";
+import {
+    save,
+    load
 } from "./player.js";
 import {
     loop
@@ -14,6 +15,7 @@ import {
 function init() {
     load();
     initCrazy();
+    initFighting();
     setInterval(save, 10000);
     requestAnimationFrame(loop);
 }
