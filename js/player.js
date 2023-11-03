@@ -1,6 +1,6 @@
 import {
-    tick
-} from "./tick.js";
+    framework
+} from "./framework.js";
 
 export const player = {
     lastTime: undefined,
@@ -33,6 +33,6 @@ export function load() {
     const playerString = localStorage.getItem('player');
     if (playerString) {
         updateNestedObject(player, JSON.parse(playerString));
-        tick(performance.timeOrigin + performance.now() - player.lastTime);
+        framework.tick(performance.timeOrigin + performance.now() - player.lastTime);
     }
 }

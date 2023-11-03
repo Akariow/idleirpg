@@ -13,9 +13,9 @@ import {
 } from "./tick.js";
 
 function init() {
-    load();
     initCrazy();
     initFighting();
+    load();
     setInterval(save, 10000);
     requestAnimationFrame(loop);
 }

@@ -9,6 +9,12 @@ import {
 } from "./format.js";
 
 export function initCrazy() {
+
+    framework.ticks.push(function tick(deltaTimeMS) {
+        const deltaTimeS = deltaTimeMS / 1000;
+        player.crazy += player.generatorCount * deltaTimeS;
+    });
+
     framework.makeClickable({
         id: 'crazyButton',
         display: 'Im  Crazy?!',
