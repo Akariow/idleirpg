@@ -12,9 +12,10 @@ let fighting = {
     PLAYER: {
         NAME: "Allah",
         HP: 1000,
-        ATK() {
+        /*ATK() {
             return 15 + player.fightStatsBonusAtk;
-        }
+        }*/
+        ATK: 15 + player.fightStatsBonusAtk
     },
     ENEMY: {
         NAME: "Aiwass?",
@@ -69,6 +70,9 @@ function fight(player, enemy) {
 }
 
 export function initFighting() {
+
+    fighting.PLAYER.ATK = 15 + player.fightStatsBonusAtk;
+
     framework.makeDisplay({
         id: 'fightStatsDisplay',
         title: 'STATS',
@@ -88,6 +92,7 @@ export function initFighting() {
         },
         buy() {
             player.fightStatsBonusAtk++;
+            fighting.PLAYER.ATK = 15 + player.fightStatsBonusAtk;
             player.crazy -= this.cost();
             player.fightStatsBonusAtkCost = Math.trunc(this.cost() * 1.5);
         }
