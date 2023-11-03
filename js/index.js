@@ -1,4 +1,7 @@
 import {
+    framework
+} from "./framework.js";
+import {
     initCrazy
 } from "./crazy.js";
 import {
@@ -8,16 +11,13 @@ import {
     save,
     load
 } from "./player.js";
-import {
-    loop
-} from "./tick.js";
 
 function init() {
     initCrazy();
     initFighting();
     load();
     setInterval(save, 10000);
-    requestAnimationFrame(loop);
+    framework.start();
 }
 
 init();
