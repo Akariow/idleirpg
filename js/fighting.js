@@ -73,7 +73,7 @@ export function initFighting() {
         id: 'fightStatsDisplay',
         title: 'STATS',
         value() {
-            return Object.keys(fighting.PLAYER).map((key) => key + ': ' + fighting.PLAYER[key]).join('<br>');
+            return Object.keys(fighting.PLAYER).map((key) => key + ': ' + v(fighting.PLAYER[key])).join('<br>');
         }
     });
 
