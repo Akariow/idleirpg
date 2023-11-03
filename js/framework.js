@@ -5,17 +5,19 @@ export const framework = {
             tick(deltaTimeMS);
         }
     },
-    lastTime: undefined,
-    loop(currentTime) {
-        if (this.lastTime) {
-            const deltaTime = currentTime - this.lastTime;
-            this.tick(deltaTime);
+    loop: (function () {
+        let lastTime;
+        return function (currentTime) {
+            if (lastTime) {
+                const deltaTime = currentTime - lastTime;
+                this.tick(deltaTime);
+            }
+            lastTime = currentTime;
+            requestAnimationFrame(this.loop);
         }
-        this.lastTime = currentTime;
-        requestAnimationFrame(this.loop.bind(this));
-    },
+    })(),
     start() {
-        requestAnimationFrame(this.loop.bind(this));
+        requestAnimationFrame(this.loop);
     },
     makeClickable(clickableObject) {
         const button = document.getElementById(clickableObject.id);
