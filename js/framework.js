@@ -5,7 +5,7 @@ export const framework = {
             tick(deltaTimeMS);
         }
     },
-    lastTime: undefined,
+    lastTime: 0,
     loop(currentTime) {
         if (this.lastTime) {
             const deltaTime = currentTime - this.lastTime;
