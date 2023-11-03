@@ -1,12 +1,15 @@
 import {
     framework
 } from "./framework.js";
+import {
+    player
+} from "./player.js";
 
 let fighting = {
     PLAYER: {
         NAME: "Allah",
         HP: 1000,
-        ATK: 15
+        ATK: 15 + player.fightStatsBonusAtk
     },
     ENEMY: {
         NAME: "Aiwass?",
@@ -66,6 +69,23 @@ export function initFighting() {
         title: 'STATS',
         value() {
             return Object.keys(fighting.PLAYER).map((key) => key + ': ' + fighting.PLAYER[key]).join('<br>');
+        }
+    });
+
+    framework.makeBuyable({
+        id: 'fightStatsUpgradeButton',
+        display: 'Upgrade ATK',
+        cost() {
+            return player.fightStatsBonusAtkCost;
+        },
+        canBuy() {
+            return player.crazy >= this.cost();
+        },
+        buy() {
+            player.fightStatsBonusAtk++;
+            fighting.PLAYER.ATK = 15 + player.fightStatsBonusAtk;
+            player.crazy -= this.cost();
+            player.fightStatsBonusAtkCost = Math.trunc(this.cost() * 1.5);
         }
     });
 

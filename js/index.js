@@ -9,13 +9,15 @@ import {
 } from "./fighting.js";
 import {
     save,
-    load
+    load,
+    doOfflineTicks
 } from "./player.js";
 
 function init() {
+    load();
     initCrazy();
     initFighting();
-    load();
+    doOfflineTicks();
     setInterval(save, 10000);
     framework.start();
 }

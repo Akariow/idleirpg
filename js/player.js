@@ -8,7 +8,9 @@ export const player = {
     crazyClick: 0,
     crazyClickUpgradeCost: 10,
     generatorCount: 0,
-    generatorCost: 100
+    generatorCost: 100,
+    fightStatsBonusAtk: 0,
+    fightStatsBonusAtkCost: 100
 };
 
 export function save() {
@@ -29,10 +31,20 @@ function updateNestedObject(obj1, obj2) {
     return obj1;
 }
 
+let offlineTicks = 0;
+
 export function load() {
     const playerString = localStorage.getItem('player');
     if (playerString) {
         updateNestedObject(player, JSON.parse(playerString));
-        framework.tick(performance.timeOrigin + performance.now() - player.lastTime);
+        offlineTicks = performance.timeOrigin + performance.now() - player.lastTime;
     }
 }
+
+export function doOfflineTicks() {
+    if(offlineTicks>0) {
+        framework.ticks(offlineTicks);
+    } 
+    offlineTicks = 0;
+}
+
